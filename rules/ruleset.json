@@ -1,0 +1,122 @@
+{
+  "version": "2026.06",
+  "current_as_of": "2026-06-09",
+  "disclaimer": "Informational triage only. Not legal advice. Verify against the official text and consult qualified counsel.",
+  "source_note": "Reflects Regulation (EU) 2024/1689 as amended by the Digital Omnibus political agreement of 7 May 2026. Deadlines for Annex III high-risk systems were deferred; verify the final adopted text.",
+  "tiers": {
+    "prohibited": {
+      "label": "Prohibited / Unacceptable risk",
+      "article": "Art. 5",
+      "summary": "Banned outright. These practices may not be placed on the market, put into service, or used in the EU.",
+      "enforceable_since": "2025-02-02"
+    },
+    "high": {
+      "label": "High-risk",
+      "article": "Art. 6 + Annex I / Annex III",
+      "summary": "Permitted but subject to the heaviest obligations (risk management, data governance, logging, human oversight, conformity assessment, registration).",
+      "deadlines": {
+        "annex_iii_standalone": "2027-12-02",
+        "annex_i_regulated_products": "2028-08-02",
+        "note": "Annex III (use-based) deferred from 2026-08-02 to 2027-12-02 by the Digital Omnibus agreement; Annex I (product-embedded) deferred to 2028-08-02. Penalties framework otherwise applies from 2026-08-02."
+      }
+    },
+    "limited": {
+      "label": "Limited risk",
+      "article": "Art. 50",
+      "summary": "Transparency obligations only: disclose AI interaction, label AI-generated/synthetic content and deepfakes.",
+      "deadline": "2026-08-02"
+    },
+    "minimal": {
+      "label": "Minimal risk",
+      "article": "n/a",
+      "summary": "No mandatory obligations under the Act. Voluntary codes of conduct encouraged."
+    }
+  },
+  "prohibited_practices": [
+    { "id": "P1", "test": "subliminal, manipulative or deceptive techniques that materially distort behaviour causing harm", "cite": "Art. 5(1)(a)" },
+    { "id": "P2", "test": "exploiting vulnerabilities due to age, disability, or socio-economic situation", "cite": "Art. 5(1)(b)" },
+    { "id": "P3", "test": "social scoring of individuals leading to detrimental or disproportionate treatment", "cite": "Art. 5(1)(c)" },
+    { "id": "P4", "test": "predictive policing assessing risk of an individual committing a crime based solely on profiling", "cite": "Art. 5(1)(d)" },
+    { "id": "P5", "test": "untargeted scraping of facial images to build facial recognition databases", "cite": "Art. 5(1)(e)" },
+    { "id": "P6", "test": "inferring emotions in the workplace or educational institutions (save medical/safety)", "cite": "Art. 5(1)(f)" },
+    { "id": "P7", "test": "biometric categorisation inferring sensitive attributes (race, political views, sexual orientation, etc.)", "cite": "Art. 5(1)(g)" },
+    { "id": "P8", "test": "real-time remote biometric identification in publicly accessible spaces for law enforcement (narrow exceptions)", "cite": "Art. 5(1)(h)" }
+  ],
+  "annex_iii_categories": [
+    { "id": "A1", "domain": "Biometrics", "test": "remote biometric identification, biometric categorisation, or emotion recognition (where not prohibited)", "cite": "Annex III(1)" },
+    { "id": "A2", "domain": "Critical infrastructure", "test": "safety component in the management/operation of critical digital infrastructure, road traffic, or utilities", "cite": "Annex III(2)" },
+    { "id": "A3", "domain": "Education", "test": "determining access, admission, evaluation of learning outcomes, or monitoring/detecting prohibited behaviour during tests", "cite": "Annex III(3)" },
+    { "id": "A4", "domain": "Employment", "test": "recruitment, screening, filtering applications, evaluating candidates, or decisions on promotion/termination/task allocation", "cite": "Annex III(4)" },
+    { "id": "A5", "domain": "Essential services", "test": "eligibility for public assistance, creditworthiness/credit scoring, risk assessment & pricing in life/health insurance, or emergency dispatch", "cite": "Annex III(5)" },
+    { "id": "A6", "domain": "Law enforcement", "test": "risk assessment of individuals, polygraphs, evidence reliability evaluation, or profiling in the course of detection/investigation", "cite": "Annex III(6)" },
+    { "id": "A7", "domain": "Migration & border", "test": "polygraphs, risk assessment, examination of asylum/visa/residence applications", "cite": "Annex III(7)" },
+    { "id": "A8", "domain": "Justice & democracy", "test": "assisting a judicial authority in researching/interpreting facts and law, or influencing election/referendum outcomes", "cite": "Annex III(8)" }
+  ],
+  "annex_iii_exemption": {
+    "test": "system does NOT pose a significant risk of harm to health, safety or fundamental rights, e.g. performs a narrow procedural task, improves the result of a prior human activity, detects decision-making patterns without replacing human judgement, or performs preparatory work. Does NOT apply if the system profiles natural persons.",
+    "cite": "Art. 6(3)",
+    "effect": "May fall out of high-risk, but provider must document the assessment and register."
+  },
+  "transparency_triggers": [
+    { "id": "T1", "test": "system interacts directly with natural persons (e.g. chatbot)", "obligation": "Inform the person they are interacting with AI, unless obvious.", "cite": "Art. 50(1)" },
+    { "id": "T2", "test": "generates synthetic audio, image, video or text content", "obligation": "Mark output as artificially generated/manipulated in a machine-readable way.", "cite": "Art. 50(2)" },
+    { "id": "T3", "test": "emotion recognition or biometric categorisation system", "obligation": "Inform exposed persons of the operation of the system.", "cite": "Art. 50(3)" },
+    { "id": "T4", "test": "generates or manipulates deepfake image/audio/video", "obligation": "Disclose that content has been artificially generated or manipulated.", "cite": "Art. 50(4)" }
+  ],
+  "gpai": {
+    "enforceable_since": "2025-08-02",
+    "base_obligations": [
+      { "id": "G1", "obligation": "Draw up and keep technical documentation of the model (training, testing, evaluation).", "cite": "Art. 53(1)(a)" },
+      { "id": "G2", "obligation": "Provide information & documentation to downstream providers integrating the model.", "cite": "Art. 53(1)(b)" },
+      { "id": "G3", "obligation": "Put in place a policy to comply with EU copyright law.", "cite": "Art. 53(1)(c)" },
+      { "id": "G4", "obligation": "Publish a sufficiently detailed summary of training content.", "cite": "Art. 53(1)(d)" }
+    ],
+    "systemic_risk": {
+      "test": "model trained with cumulative compute > 10^25 FLOPs, or designated by the Commission as having high-impact capabilities",
+      "cite": "Art. 51",
+      "extra_obligations": [
+        { "id": "GS1", "obligation": "Perform model evaluation including adversarial testing.", "cite": "Art. 55(1)(a)" },
+        { "id": "GS2", "obligation": "Assess and mitigate systemic risks.", "cite": "Art. 55(1)(b)" },
+        { "id": "GS3", "obligation": "Track, document and report serious incidents.", "cite": "Art. 55(1)(c)" },
+        { "id": "GS4", "obligation": "Ensure an adequate level of cybersecurity protection.", "cite": "Art. 55(1)(d)" }
+      ]
+    }
+  },
+  "high_risk_obligations": {
+    "provider": [
+      { "id": "H1", "obligation": "Establish, implement and maintain a risk management system across the lifecycle.", "cite": "Art. 9" },
+      { "id": "H2", "obligation": "Data governance: training/validation/test sets must be relevant, representative, and error-checked.", "cite": "Art. 10" },
+      { "id": "H3", "obligation": "Draw up technical documentation before placing on market.", "cite": "Art. 11 + Annex IV" },
+      { "id": "H4", "obligation": "Automatic recording of events (logging) over the system lifetime.", "cite": "Art. 12" },
+      { "id": "H5", "obligation": "Transparency and provision of instructions for use to deployers.", "cite": "Art. 13" },
+      { "id": "H6", "obligation": "Design for effective human oversight.", "cite": "Art. 14" },
+      { "id": "H7", "obligation": "Ensure appropriate accuracy, robustness and cybersecurity.", "cite": "Art. 15" },
+      { "id": "H8", "obligation": "Establish a quality management system.", "cite": "Art. 17" },
+      { "id": "H9", "obligation": "Undergo conformity assessment and draw up an EU declaration of conformity; affix CE marking.", "cite": "Art. 43, 47, 48" },
+      { "id": "H10", "obligation": "Register the system in the EU database before placing on market.", "cite": "Art. 49" }
+    ],
+    "deployer": [
+      { "id": "D1", "obligation": "Use the system in accordance with the instructions for use.", "cite": "Art. 26(1)" },
+      { "id": "D2", "obligation": "Assign human oversight to competent, trained natural persons.", "cite": "Art. 26(2)" },
+      { "id": "D3", "obligation": "Ensure input data is relevant and sufficiently representative for the intended purpose.", "cite": "Art. 26(4)" },
+      { "id": "D4", "obligation": "Monitor operation and keep logs; inform provider/authority of risks or serious incidents.", "cite": "Art. 26(5)" },
+      { "id": "D5", "obligation": "Conduct a fundamental rights impact assessment (FRIA) where required (public bodies, certain services).", "cite": "Art. 27" }
+    ]
+  },
+  "penalties": {
+    "prohibited": "Up to €35,000,000 or 7% of total worldwide annual turnover, whichever is higher.",
+    "most_obligations": "Up to €15,000,000 or 3% of worldwide annual turnover.",
+    "incorrect_information": "Up to €7,500,000 or 1% of worldwide annual turnover.",
+    "cite": "Art. 99"
+  },
+  "repo_artifacts": [
+    { "id": "R1", "artifact": "Model card / model documentation", "looks_for": ["model_card", "MODEL_CARD", "model-card", "modelcard"], "maps_to": ["G1", "H3"] },
+    { "id": "R2", "artifact": "Data governance / dataset documentation", "looks_for": ["data_governance", "datasheet", "data-card", "DATA"], "maps_to": ["H2", "G4"] },
+    { "id": "R3", "artifact": "Risk management documentation", "looks_for": ["risk", "risk_management", "risk-assessment"], "maps_to": ["H1"] },
+    { "id": "R4", "artifact": "Logging / audit trail description", "looks_for": ["logging", "audit", "telemetry"], "maps_to": ["H4"] },
+    { "id": "R5", "artifact": "Human oversight description", "looks_for": ["human_oversight", "human-in-the-loop", "oversight"], "maps_to": ["H6"] },
+    { "id": "R6", "artifact": "Transparency / AI disclosure notice", "looks_for": ["transparency", "ai_disclosure", "ai-notice"], "maps_to": ["T1", "T2", "H5"] },
+    { "id": "R7", "artifact": "Copyright / training data policy", "looks_for": ["copyright", "licenses", "LICENSE"], "maps_to": ["G3"] },
+    { "id": "R8", "artifact": "Conformity / CE documentation", "looks_for": ["conformity", "declaration", "ce_marking"], "maps_to": ["H9"] }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "name": "ai-act-mcp",
+  "version": "0.1.0",
+  "description": "Lint your AI system for EU AI Act compliance before the regulators do — a local MCP server. Risk classification, obligations, deadlines, and repo scanning, all on your machine.",
+  "type": "module",
+  "bin": { "ai-act-mcp": "dist/index.js" },
+  "files": ["dist", "rules"],
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "node --test dist/engine.test.js",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": ["mcp", "eu-ai-act", "ai-act", "compliance", "model-context-protocol", "ai-governance"],
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0",
+    "@types/node": "^20.0.0"
+  },
+  "engines": { "node": ">=18" }
+}

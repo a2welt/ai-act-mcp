@@ -1,0 +1,75 @@
+name: Ruleset correction
+description: Report an inaccuracy in the AI Act rules, obligations, or deadlines. This is the highest-impact contribution.
+title: "[Ruleset] "
+labels: ["ruleset", "good first issue"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for keeping the ruleset accurate. Every claim in this tool must cite a specific article — please include the reference.
+        The official text is at [EUR-Lex](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32024R1689).
+
+  - type: input
+    id: rule-id
+    attributes:
+      label: Rule ID
+      description: "e.g. H3, P1, A4, T2 — or 'new' if this is a missing rule"
+      placeholder: H3
+    validations:
+      required: true
+
+  - type: dropdown
+    id: correction-type
+    attributes:
+      label: Type of correction
+      options:
+        - Wrong obligation text
+        - Wrong or missing citation
+        - Outdated deadline
+        - Missing rule
+        - Wrong tier classification
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-text
+    attributes:
+      label: Current text (paste the relevant JSON from ruleset.json)
+      render: json
+    validations:
+      required: false
+
+  - type: textarea
+    id: proposed-text
+    attributes:
+      label: Proposed replacement
+      render: json
+    validations:
+      required: true
+
+  - type: input
+    id: cite
+    attributes:
+      label: Article / Annex citation
+      description: "e.g. Art. 9, Annex III(4), Art. 5(1)(b)"
+      placeholder: "Art. 9"
+    validations:
+      required: true
+
+  - type: input
+    id: source
+    attributes:
+      label: Source URL
+      description: Link to the official text, EUR-Lex, or an amendment document
+      placeholder: "https://eur-lex.europa.eu/..."
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: omnibus
+    attributes:
+      label: Digital Omnibus
+      options:
+        - label: This correction relates to the May 2026 Digital Omnibus amendments

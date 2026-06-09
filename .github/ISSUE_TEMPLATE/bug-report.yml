@@ -1,0 +1,60 @@
+name: Bug report
+description: Something in the server, engine, or classifier is broken
+title: "[Bug] "
+labels: ["bug"]
+
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, what did you get?
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Set AI_ACT_CLASSIFIER=local
+        2. Describe "..." to classify_risk
+        3. Got "..." instead of "..."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: classifier
+    attributes:
+      label: Classifier backend
+      options:
+        - keyword (default)
+        - local (Ollama)
+        - host (MCP sampling)
+      default: 0
+    validations:
+      required: true
+
+  - type: input
+    id: model
+    attributes:
+      label: Model (if using local or host)
+      placeholder: "llama3.2"
+    validations:
+      required: false
+
+  - type: input
+    id: version
+    attributes:
+      label: ai-act-mcp version
+      placeholder: "2026.06"
+    validations:
+      required: true
+
+  - type: input
+    id: node
+    attributes:
+      label: Node.js version
+      placeholder: "v20.x"
+    validations:
+      required: true

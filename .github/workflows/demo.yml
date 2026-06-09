@@ -24,6 +24,11 @@ jobs:
           node-version: '20'
           cache: npm
 
+      - name: Install VHS dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg ttyd
+
       - name: Build
         run: npm ci && npm run build
 

@@ -24,7 +24,7 @@ interface Rule { id: string; test: string; cite: string; }
 interface AnnexRule extends Rule { domain: string; }
 interface TransparencyRule { id: string; test: string; obligation: string; cite: string; }
 interface Obligation { id: string; obligation: string; cite: string; }
-interface RepoArtifact { id: string; artifact: string; looks_for: string[]; maps_to: string[]; }
+interface RepoArtifact { id: string; artifact: string; severity: "required" | "recommended"; looks_for: string[]; maps_to: string[]; }
 
 export const ruleset: Ruleset = JSON.parse(
   readFileSync(join(__dirname, "..", "rules", "ruleset.json"), "utf-8")
@@ -121,6 +121,7 @@ export function checkObligations(tier: string, role: "provider" | "deployer", is
 
   if (tier === "prohibited") {
     lines.push(`This practice appears **prohibited (Art. 5)**. It may not be placed on the market, put into service, or used in the EU. ${ruleset.penalties.prohibited} (*${ruleset.penalties.cite}*)`);
+    lines.push(`\n**Deadline:** already enforceable since ${ruleset.tiers.prohibited.enforceable_since}.`);
     return lines.join("\n") + FOOTER;
   }
 
@@ -128,9 +129,12 @@ export function checkObligations(tier: string, role: "provider" | "deployer", is
     const obs = ruleset.high_risk_obligations[role] ?? [];
     lines.push(`## High-risk obligations for the ${role}`);
     for (const o of obs) lines.push(`- **${o.id}** ${o.obligation} — *${o.cite}*`);
+    const d = ruleset.tiers.high.deadlines;
+    lines.push(`\n**Deadline for these obligations:** Annex III (use-based) → ${d.annex_iii_standalone}; Annex I (product-embedded) → ${d.annex_i_regulated_products}. ${d.note}`);
   } else if (tier === "limited") {
     lines.push(`## Transparency obligations`);
     for (const t of ruleset.transparency_triggers) lines.push(`- ${t.obligation} — *${t.cite}*`);
+    lines.push(`\n**Deadline for these obligations:** ${ruleset.tiers.limited.deadline}.`);
   } else {
     lines.push(`No mandatory obligations under the Act for minimal-risk systems. Voluntary codes of conduct are encouraged.`);
   }
@@ -166,11 +170,16 @@ export function scanRepo(fileList: string[]) {
   const lines: string[] = [`# Repository compliance artifact scan\n`];
   lines.push(`Scanned ${fileList.length} paths for documentation artifacts the Act expects.\n`);
   const lower = fileList.map((f) => f.toLowerCase());
+  let pass = 0, warn = 0, fail = 0;
   for (const r of ruleset.repo_artifacts) {
     const found = r.looks_for.some((kw) => lower.some((f) => f.includes(kw.toLowerCase())));
-    const status = found ? "✅ PASS" : "❌ MISSING";
+    let status: string;
+    if (found) { status = "✅ PASS"; pass++; }
+    else if (r.severity === "recommended") { status = "⚠️ WARN"; warn++; }
+    else { status = "❌ FAIL"; fail++; }
     lines.push(`- ${status} — **${r.artifact}** (relates to ${r.maps_to.join(", ")})`);
   }
+  lines.push(`\n**Summary: ${pass} pass · ${warn} warn · ${fail} fail.** WARN = artifact is conditionally required (only if its trigger applies); FAIL = a core high-risk artifact (Art. 9–15) appears absent.`);
   lines.push(`\n*A present file does not prove adequacy — contents must still satisfy the cited articles. A missing file is a strong signal of a documentation gap.*`);
   return lines.join("\n") + FOOTER;
 }

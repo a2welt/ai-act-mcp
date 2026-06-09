@@ -48,7 +48,7 @@ server.tool(
 
 server.tool(
   "scan_repo",
-  "Scan a local repository path for the documentation artifacts the AI Act expects (model card, data governance, risk management, logging, human oversight, transparency notices) and report pass/missing per artifact.",
+  "Scan a local repository path for the documentation artifacts the AI Act expects (model card, data governance, risk management, logging, human oversight, transparency notices) and report pass/warn/fail per artifact.",
   { path: z.string().describe("Absolute path to the repository root to scan.") },
   async ({ path }) => {
     const files: string[] = [];

@@ -23,7 +23,7 @@ Four tools, exposed to any MCP-compatible agent (Claude Code, Cursor, Claude Des
 | `classify_risk` | "Is my system prohibited / high-risk / limited / minimal?" — with Annex III category + citations |
 | `check_obligations` | "Given my tier and whether I'm a provider or deployer, what must I do?" — article by article |
 | `next_deadlines` | "When does this apply to me?" — the staggered 2025–2028 timeline |
-| `scan_repo` | "Which compliance artifacts (model card, data governance, logging, oversight, transparency notices) am I missing?" |
+| `scan_repo` | "Which compliance artifacts (model card, data governance, logging, oversight, transparency notices) am I missing?" — a pass/warn/fail checklist |
 
 The rules live in a single versioned, citation-backed file: [`rules/ruleset.json`](rules/ruleset.json). It reflects Regulation (EU) 2024/1689 as amended by the May 2026 Digital Omnibus agreement, and is date-stamped so you always know how current it is.
 

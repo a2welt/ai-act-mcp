@@ -41,12 +41,24 @@ test("deadlines mention deferred Annex III date", () => {
   assert.match(nextDeadlines("high"), /2027-12-02/);
 });
 
-test("scan flags missing model card", () => {
+test("scan FAILs a missing required artifact (model card)", () => {
   const out = scanRepo(["/repo/src/index.ts", "/repo/README.md"]);
-  assert.match(out, /MISSING.*Model card/);
+  assert.match(out, /FAIL.*Model card/);
 });
 
 test("scan passes when model card present", () => {
   const out = scanRepo(["/repo/MODEL_CARD.md", "/repo/src/index.ts"]);
   assert.match(out, /PASS.*Model card/);
+});
+
+test("scan WARNs (not fails) a missing recommended artifact", () => {
+  const out = scanRepo(["/repo/src/index.ts"]);
+  assert.match(out, /WARN.*Conformity/);
+  assert.match(out, /Summary:.*pass.*warn.*fail/);
+});
+
+test("check_obligations states the specific deadline per tier", () => {
+  assert.match(checkObligations("high", "provider"), /Deadline.*2027-12-02/s);
+  assert.match(checkObligations("limited", "deployer"), /Deadline.*2026-08-02/s);
+  assert.match(checkObligations("prohibited", "provider"), /Deadline.*2025-02-02/s);
 });

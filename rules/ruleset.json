@@ -110,13 +110,13 @@
     "cite": "Art. 99"
   },
   "repo_artifacts": [
-    { "id": "R1", "artifact": "Model card / model documentation", "looks_for": ["model_card", "MODEL_CARD", "model-card", "modelcard"], "maps_to": ["G1", "H3"] },
-    { "id": "R2", "artifact": "Data governance / dataset documentation", "looks_for": ["data_governance", "datasheet", "data-card", "DATA"], "maps_to": ["H2", "G4"] },
-    { "id": "R3", "artifact": "Risk management documentation", "looks_for": ["risk", "risk_management", "risk-assessment"], "maps_to": ["H1"] },
-    { "id": "R4", "artifact": "Logging / audit trail description", "looks_for": ["logging", "audit", "telemetry"], "maps_to": ["H4"] },
-    { "id": "R5", "artifact": "Human oversight description", "looks_for": ["human_oversight", "human-in-the-loop", "oversight"], "maps_to": ["H6"] },
-    { "id": "R6", "artifact": "Transparency / AI disclosure notice", "looks_for": ["transparency", "ai_disclosure", "ai-notice"], "maps_to": ["T1", "T2", "H5"] },
-    { "id": "R7", "artifact": "Copyright / training data policy", "looks_for": ["copyright", "licenses", "LICENSE"], "maps_to": ["G3"] },
-    { "id": "R8", "artifact": "Conformity / CE documentation", "looks_for": ["conformity", "declaration", "ce_marking"], "maps_to": ["H9"] }
+    { "id": "R1", "artifact": "Model card / model documentation", "severity": "required", "looks_for": ["model_card", "MODEL_CARD", "model-card", "modelcard"], "maps_to": ["G1", "H3"] },
+    { "id": "R2", "artifact": "Data governance / dataset documentation", "severity": "required", "looks_for": ["data_governance", "datasheet", "data-card", "DATA"], "maps_to": ["H2", "G4"] },
+    { "id": "R3", "artifact": "Risk management documentation", "severity": "required", "looks_for": ["risk", "risk_management", "risk-assessment"], "maps_to": ["H1"] },
+    { "id": "R4", "artifact": "Logging / audit trail description", "severity": "required", "looks_for": ["logging", "audit", "telemetry"], "maps_to": ["H4"] },
+    { "id": "R5", "artifact": "Human oversight description", "severity": "required", "looks_for": ["human_oversight", "human-in-the-loop", "oversight"], "maps_to": ["H6"] },
+    { "id": "R6", "artifact": "Transparency / AI disclosure notice", "severity": "recommended", "looks_for": ["transparency", "ai_disclosure", "ai-notice"], "maps_to": ["T1", "T2", "H5"] },
+    { "id": "R7", "artifact": "Copyright / training data policy", "severity": "recommended", "looks_for": ["copyright", "licenses", "LICENSE"], "maps_to": ["G3"] },
+    { "id": "R8", "artifact": "Conformity / CE documentation", "severity": "recommended", "looks_for": ["conformity", "declaration", "ce_marking"], "maps_to": ["H9"] }
   ]
 }

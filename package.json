@@ -8,7 +8,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "test": "node --test dist/engine.test.js",
+    "test": "node --test dist/engine.test.js dist/classifier.test.js",
     "prepublishOnly": "npm run build"
   },
   "keywords": ["mcp", "eu-ai-act", "ai-act", "compliance", "model-context-protocol", "ai-governance"],

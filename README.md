@@ -51,6 +51,38 @@ Then register it with your agent. **Claude Desktop / Claude Code** (`claude_desk
 
 Restart your agent and ask it: *"Classify my hiring tool under the EU AI Act."*
 
+## Classifier backends — including fully offline
+
+`classify_risk` runs through a pluggable backend, chosen with the `AI_ACT_CLASSIFIER` environment variable. **Every backend emits the same article-cited output, and every model-backed backend falls back to the deterministic keyword screen if the model is unavailable** — so the server always answers, and the legal citations never depend on the model.
+
+| `AI_ACT_CLASSIFIER` | Backend | Where the description goes | Notes |
+|---------------------|---------|----------------------------|-------|
+| `keyword` *(default)* | Deterministic keyword screen | Nowhere — pure local logic | Zero dependencies, instant, fully offline |
+| `local` | A small LLM via [Ollama](https://ollama.com) on `localhost` | **Stays on your machine** | Semantic accuracy with full privacy |
+| `host` | The agent's own model, via [MCP sampling](https://modelcontextprotocol.io/docs/concepts/sampling) | To whatever model your agent uses | Best quality when the client supports sampling |
+
+### Fully offline on a local model
+
+Your AI-system description is exactly the kind of proprietary, legally-sensitive text you should not paste into a cloud service. So run the classification on a small model on your own machine — nothing leaves it:
+
+```bash
+ollama pull llama3.2          # any small instruct model works
+```
+
+```json
+{
+  "mcpServers": {
+    "ai-act": {
+      "command": "node",
+      "args": ["/absolute/path/to/ai-act-mcp/dist/index.js"],
+      "env": { "AI_ACT_CLASSIFIER": "local" }
+    }
+  }
+}
+```
+
+The model only ever picks among the ruleset's enumerated, cited categories — it never invents law — which is what keeps even a small model reliable. Tune it with `AI_ACT_SLM_MODEL` (default `llama3.2`), `AI_ACT_OLLAMA_URL` (default `http://localhost:11434`), and `AI_ACT_SLM_TIMEOUT_MS` (default `30000`).
+
 ## Example
 
 > **You:** I'm building a tool that screens job applicants' CVs and ranks them. Classify it.
@@ -65,7 +97,7 @@ npm test
 
 ## Roadmap
 
-- [ ] Optional local-SLM classification (fully offline semantic tiering, no host model needed)
+- [x] Pluggable classifier backends — deterministic keyword, **local SLM (fully offline)**, or host-model sampling
 - [ ] FRIA (fundamental rights impact assessment) scaffold generator
 - [ ] GPAI Code of Practice checklist
 - [ ] Ruleset auto-update workflow as Omnibus amendments are adopted

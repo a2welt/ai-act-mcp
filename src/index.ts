@@ -6,16 +6,21 @@ import { readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 import {
   ruleset,
-  classifyRisk,
+  renderClassification,
   checkObligations,
   nextDeadlines,
   scanRepo,
 } from "./engine.js";
+import { getClassifier } from "./classifier.js";
 
 const server = new McpServer({
   name: "ai-act-mcp",
   version: ruleset.version,
 });
+
+// Backend for classify_risk: keyword (default) | local SLM | host sampling.
+// Selected via AI_ACT_CLASSIFIER. The "host" backend uses MCP sampling.
+const classifier = getClassifier(server.server);
 
 function text(s: string) {
   return { content: [{ type: "text" as const, text: s }] };
@@ -25,7 +30,7 @@ server.tool(
   "classify_risk",
   "Classify an AI system under the EU AI Act risk tiers (prohibited / high / limited / minimal) from a plain-English description of what it does and who it affects. Returns the likely tier with cited articles and Annex III categories. Informational triage, not legal advice.",
   { description: z.string().describe("What the AI system does, its purpose, and who it affects.") },
-  async ({ description }) => text(classifyRisk(description))
+  async ({ description }) => text(renderClassification(await classifier.classify(description)))
 );
 
 server.tool(
@@ -74,4 +79,4 @@ server.tool(
 
 const transport = new StdioServerTransport();
 await server.connect(transport);
-console.error(`ai-act-mcp ${ruleset.version} running on stdio`);
+console.error(`ai-act-mcp ${ruleset.version} running on stdio (classifier: ${classifier.name})`);

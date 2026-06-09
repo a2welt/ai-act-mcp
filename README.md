@@ -14,7 +14,7 @@ Runs entirely on your machine. Your code and model details never leave your lapt
 
 The EU AI Act is live and has teeth. Prohibited practices have been enforceable since Feb 2025, GPAI obligations since Aug 2025, and penalties reach **€35M or 7% of global turnover**. Most teams have no idea which tier they fall in or what they actually have to do. This gives you a grounded first pass in seconds, inside the agent you already use.
 
-## What it does
+## What it does 
 
 Four tools, exposed to any MCP-compatible agent (Claude Code, Cursor, Claude Desktop, …):
 

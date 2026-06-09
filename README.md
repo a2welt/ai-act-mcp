@@ -20,9 +20,7 @@ A local [Model Context Protocol](https://modelcontextprotocol.io) server that cl
 
 ---
 
-<!-- DEMO GIF — generate with: cd demo && vhs demo.tape -->
-<!-- Replace this block with the generated demo.gif once recorded -->
-> **Recording the demo:** install [VHS](https://github.com/charmbracelet/vhs), run `npm run build`, then `cd demo && vhs demo.tape`. A `demo.gif` will appear — drop it here.
+![ai-act-mcp demo](demo/demo.gif)
 
 ---
 

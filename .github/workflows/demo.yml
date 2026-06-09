@@ -1,0 +1,39 @@
+name: Generate demo GIF
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - demo/demo-ci.tape
+      - src/**
+      - rules/**
+
+  workflow_dispatch: # allow manual trigger from the Actions tab
+
+jobs:
+  vhs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Build
+        run: npm ci && npm run build
+
+      - name: Record demo GIF
+        uses: charmbracelet/vhs-action@v2
+        with:
+          path: demo/demo-ci.tape
+
+      - name: Commit GIF
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: update demo.gif [skip ci]"
+          file_pattern: demo/demo.gif

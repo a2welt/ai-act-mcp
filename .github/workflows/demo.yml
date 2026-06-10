@@ -24,18 +24,21 @@ jobs:
           node-version: '20'
           cache: npm
 
-      - name: Install VHS dependencies
+      - name: Install VHS + dependencies
         run: |
+          sudo mkdir -p /etc/apt/keyrings
+          curl -fsSL https://repo.charm.sh/apt/gpg.key \
+            | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
+          echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" \
+            | sudo tee /etc/apt/sources.list.d/charm.list
           sudo apt-get update -qq
-          sudo apt-get install -y ffmpeg ttyd
+          sudo apt-get install -y vhs ffmpeg ttyd
 
       - name: Build
         run: npm ci && npm run build
 
       - name: Record demo GIF
-        uses: charmbracelet/vhs-action@v2
-        with:
-          path: demo/demo-ci.tape
+        run: vhs demo/demo-ci.tape
 
       - name: Commit GIF
         uses: stefanzweifel/git-auto-commit-action@v5

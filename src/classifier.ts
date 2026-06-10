@@ -36,11 +36,14 @@ function catalog(): string {
 
 const SYSTEM_PROMPT =
   "You are a EU AI Act classification assistant. Given a description of an AI system, " +
-  "identify which of the enumerated category IDs apply. Use ONLY IDs from the catalog; " +
-  "if none apply the system is minimal-risk and all arrays are empty. Be conservative: " +
-  "only include an ID when the description clearly matches it. " +
-  'Respond with ONLY a JSON object of this exact shape: ' +
-  '{"prohibited":["P?"],"annex":["A?"],"transparency":["T?"],"rationale":"one short sentence"}.';
+  "identify which of the enumerated category IDs apply. Use ONLY IDs from the catalog. " +
+  "IMPORTANT RULES: " +
+  "(1) A false positive on a prohibited practice is a serious legal error — only flag P-IDs when the description EXPLICITLY describes that practice, not merely a superficially similar one. " +
+  "(2) A code tool, recommendation engine, or decision-support tool is NOT prohibited unless it literally matches the prohibition text. " +
+  "(3) If no category clearly applies, return empty arrays — minimal risk is a valid and common result. " +
+  "(4) Never include an ID just because the description mentions a related domain. The system must actually perform the categorised function. " +
+  'Respond with ONLY a JSON object: ' +
+  '{"prohibited":["P?"],"annex":["A?"],"transparency":["T?"],"rationale":"one short sentence explaining the key classification decision"}.';
 
 function userPrompt(description: string): string {
   return `Catalog:\n${catalog()}\n\nSystem description:\n"""${description.slice(0, 4000)}"""\n\nReturn the matching IDs as JSON.`;
